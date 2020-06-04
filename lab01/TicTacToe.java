@@ -25,9 +25,11 @@ public class TicTacToe {
     private Status status;
     // either 'X' or 'O'
     private char currentPlayer;
+
+    private Scanner in;
     
     /* 
-     * this represents the net number of tiles marked by a player in a row,
+     * this represents the number tiles marked by a player in a row,
      * column or diagonal.
      * 
      * index 0-2 are rows 1-3, 3-5 are cols 1-3, 6 and 7 are diagonals
@@ -54,6 +56,7 @@ public class TicTacToe {
         this.score = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
         this.status = Status.CONTINUE;
         this.totalMoves = 0;
+        in = new Scanner(System.in);
         
         if (randomPlayer) {
             SecureRandom rand = new SecureRandom();
@@ -165,31 +168,39 @@ public class TicTacToe {
         this.totalMoves++;
     }
     
+    // gets input while also checking if the user wants to exit
+    private String getInput() {
+        String line = in.nextLine();
+        if (line.compareTo("exit") == 0) {
+            System.exit(0);
+        }
+        return line;
+    }
+    
     /**
      * Prompts for player's turn if status is CONTINUE, prints winner if it is
      * WIN, or informs the player of a draw if it is DRAW.
      */
     private void printStatus() {
         if (this.gameStatus() == gameStatus().CONTINUE) {
-            Scanner in = new Scanner(System.in);
             String row = "", col = "";
 
-            System.out.printf("Player %c's turn%n%n", this.currentPlayer);      
+            System.out.printf("Player %c's turn%n", this.currentPlayer);      
             while (!this.validMove(row, col)) {
                 System.out.printf("Player %c: Enter row (0, 1, or 2): ", this.currentPlayer);
-                row = in.nextLine();
+                row = getInput();
                 System.out.printf("Player %c: Enter column (0, 1, or 2): ", this.currentPlayer);
-                col = in.nextLine();
+                col = getInput();
             }
-
+            
             this.markTile(Integer.parseInt(col), Integer.parseInt(row));
 
             // toggle player
             this.currentPlayer = this.currentPlayer == 'X' ? 'O' : 'X';
         } else if (this.gameStatus() == gameStatus().WIN) {
-            System.out.printf("Player %c wins!%n", this.currentPlayer);
+            System.out.printf("Player %c wins!", this.currentPlayer);
         } else {
-            System.out.printf("Draw!%n");
+            System.out.printf("Draw!");
         }
     }
 }
