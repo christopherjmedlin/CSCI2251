@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.security.SecureRandom;
 
 public class TicTacToe {
     
@@ -40,8 +41,11 @@ public class TicTacToe {
 
     // for checking for draw
     private int totalMoves;
-
-    public TicTacToe() {
+    
+    /**
+     * @param randomPlayer if true, starts with a random player
+     */
+    public TicTacToe(boolean randomPlayer) {
         this.board = new CellValue[][] {
             { CellValue.EMPTY, CellValue.EMPTY, CellValue.EMPTY },
             { CellValue.EMPTY, CellValue.EMPTY, CellValue.EMPTY },
@@ -49,8 +53,18 @@ public class TicTacToe {
         };
         this.score = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
         this.status = Status.CONTINUE;
-        this.currentPlayer = 'X';
         this.totalMoves = 0;
+        
+        if (randomPlayer) {
+            SecureRandom rand = new SecureRandom();
+            this.currentPlayer = rand.nextInt(2) == 1 ? 'X' : 'O';
+        } else {
+            this.currentPlayer = 'X';
+        }
+    }
+
+    public TicTacToe() {
+        this(false);
     }
     
     /**
