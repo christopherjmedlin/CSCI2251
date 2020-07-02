@@ -23,7 +23,6 @@ public class MatrixAddition implements Runnable {
     
     @Override
     public void run() {
-        System.out.println("thinking...");
         A.subMatrixAdd(B, C, start, end);
     }
 }

@@ -34,7 +34,7 @@ public class MatrixThread {
                 threadop.print();
             }
         } catch (IOException e) {
-            System.err.printf("File %s does not exist.%n", args[0]);
+            System.err.printf("File %s does not exist.%n", parsedArgs.filename);
         } catch (Matrix.FormatException e) {
             System.err.printf("Incorrect matrix format: %s%n", e.getMessage());
         } catch (InterruptedException e) {
