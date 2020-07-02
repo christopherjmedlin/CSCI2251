@@ -71,8 +71,6 @@ public class ThreadOperation {
                 new Point(mid.x+1, mid.y-1), end
             ));
         } else {
-            
-                System.out.println("WHAT");
             // without threads
             A.add(B, C);
         }
