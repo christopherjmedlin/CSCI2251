@@ -33,7 +33,6 @@ public class Server {
                 this.sock = this.server.accept();
                 setStreams();
                 processConnection();   
-                close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -42,8 +41,8 @@ public class Server {
     
     // sets in and out to the input and output streams of the socket
     private void setStreams() throws IOException {
-        this.in = new ObjectInputStream(this.sock.getInputStream());
         this.out = new ObjectOutputStream(this.sock.getOutputStream());
+        this.in = new ObjectInputStream(this.sock.getInputStream());
     }
     
     // after connection, receives matrices and performs addition, sending the
@@ -63,16 +62,11 @@ public class Server {
             this.out.writeBoolean(true);
             // write result
             this.out.writeObject(op.result());
+            this.out.flush();
         } catch (ClassNotFoundException | InterruptedException e) {
             //indicate failure
             this.out.writeBoolean(false);
+            this.out.flush();
         }
-    }
-
-    // closes the currently active connection
-    private void close() throws IOException {
-        in.close();
-        out.close();
-        sock.close();
     }
 }

@@ -26,6 +26,7 @@ public class ThreadOperation {
      * @throws IOException if the file does not exist
      */
     public ThreadOperation(Matrix A, Matrix B) {
+        this.executor = Executors.newFixedThreadPool(4);
         this.A = A;
         this.B = B;
         // create destination matrix

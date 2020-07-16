@@ -9,10 +9,11 @@
  */
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 
-public class Matrix {
+public class Matrix implements Serializable {
 
     private int[][] data;
     
